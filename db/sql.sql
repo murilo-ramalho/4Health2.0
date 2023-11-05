@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS paciente (
 );
 
 INSERT INTO paciente(cpf,rg,nome,nascimento,sexo,senha,situacao,problema,pcd,alergia) 
-VALUES(50320620816,604922630,"murilo ramalho","2003-11-22","m","kkkk","ativo","nenhum","nenhum","nenhum");
+VALUES(11111111111,111111111,"murilo ramalho","2003-11-22","m","kkkk","ativo","nenhum","nenhum","nenhum");
 
 DROP TABLE IF EXISTS MEDICO;
 CREATE TABLE IF NOT EXISTS medico (
