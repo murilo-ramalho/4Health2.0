@@ -4,6 +4,7 @@ const conn = require('./config/db');
 const PacienteController = require('./controller/PacienteController');
 const MedicoController = require('./controller/MedicoController');
 const MedicamentoController = require('./controller/MedicamentoController');
+const ConsultasController = require('./controller/ConsultaController');
 
 const app = express();
 app.use(express.json());
@@ -79,4 +80,26 @@ app.patch('/medicamento/:id', async (req,res) => {
 app.delete('/medicamento/:id', async (req,res) => {
     const Medicamento = new MedicamentoController(req, res);
     await Medicamento.delete();
+});
+
+//consultas
+app.get('/consultas', async (req,res) => {
+    const consultas = new ConsultasController(req, res);
+    await consultas.getAll();
+});
+app.get('/consulta/:id', async (req,res) => {
+    const consulta = new ConsultasController(req, res);
+    await consulta.getById();
+});
+app.post('/consulta', async (req,res) => {
+    const consultas = new ConsultasController(req,res);
+    await consultas.inserir();
+});
+app.patch('/consulta/:id', async (req,res) => {
+    const consulta = new ConsultasController(req,res);
+    await consulta.update();
+});
+app.delete('/consulta/:id', async (req,res) => {
+    const consulta = new ConsultasController(req,res);
+    await consulta.delete();
 });
