@@ -52,6 +52,26 @@ class ConsultaController {
             this.res.status(400).send({'status':'erro ao apagar'});
         }
     }
+
+    async consultaMedico(){
+        let id = this.req.params.id;
+        let result = await this.ConsultaModel.consultaMedico(id);
+        if (result.length != 0){
+            this.res.status(200).send(result);
+        } else {
+            this.res.status(400).send({'status':'erro ao consultar'});
+        }
+    }
+
+    async consultaPaciente(){
+        let id = this.req.params.id;
+        let result = await this.ConsultaModel.consultaPaciente(id);
+        if (result.length != 0){
+            this.res.status(200).send(result);
+        } else {
+            this.res.status(400).send({'status':'erro ao consultar'});
+        }
+    }
 }
 
 module.exports = ConsultaController;

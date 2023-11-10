@@ -27,6 +27,16 @@ class ConsultaModel {
         const [call] = await conn.execute(`DELETE FROM consulta WHERE id = ${id}`);
         return call;
     }
+
+    async consultaMedico(id){
+        const [call] = await conn.execute(`SELECT * FROM consulta WHERE id_medico = ${id}`);
+        return call;
+    }
+
+    async consultaPaciente(id){
+        const [call] = await conn.execute(`SELECT * FROM consulta WHERE id_paciente = ${id}`);
+        return call;
+    }
 }
 
 module.exports = ConsultaModel;

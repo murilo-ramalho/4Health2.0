@@ -1,6 +1,8 @@
 const express = require('express');
 const conn = require('./config/db');
 
+//const AccessMiddleware = require('./middlewares/AccessMiddleware');
+
 const PacienteController = require('./controller/PacienteController');
 const MedicoController = require('./controller/MedicoController');
 const MedicamentoController = require('./controller/MedicamentoController');
@@ -19,21 +21,21 @@ app.get('/', (req, res) => res.status(200).send("ta funcionando!!!"));
 //paciente
 app.get('/pacientes', async (req, res) => {
     const Paciente = new PacienteController(req, res);
-    await PacienteController.getAll();
+    await Paciente.getAll();
 });
 app.get('/paciente/:id', async (req, res) => {
     const Paciente = new PacienteController(req, res);
     await Paciente.getById();
 });
-app.post('/paciente/', async (req, res) => {
+app.post('/paciente/cadastrar', async (req, res) => {
     const Paciente = new PacienteController(req, res);
     await Paciente.post();
 });
-app.patch('/paciente/:id', async (req, res) => {
+app.patch('/paciente/atualizar/:id', async (req, res) => {
     const Paciente = new PacienteController(req, res);
     await Paciente.update();
 });
-app.delete('/paciente/:id', async (req, res) => {
+app.delete('/paciente/apagar/:id', async (req, res) => {
     const Paciente = new PacienteController(req, res);
     await Paciente.delete();
 });
@@ -47,15 +49,15 @@ app.get('/medico/:id', async (req,res) => {
     const Medico = new MedicoController(req, res);
     await Medico.getById();
 });
-app.post('/medico', async (req,res) => {
+app.post('/medico/cadastrar', async (req,res) => {
     const Medico = new MedicoController(req, res);
     await Medico.insert();
 });
-app.patch('/medico/:id', async (req,res) =>{
+app.patch('/medico/atualizar/:id', async (req,res) =>{
     const Medico = new MedicoController(req, res);
     await Medico.update();
 });
-app.delete('/medico/:id', async (req,res) => {
+app.delete('/medico/apagar/:id', async (req,res) => {
     const Medico = new MedicoController(req, res);
     await Medico.delete();
 });
@@ -69,15 +71,15 @@ app.get('/medicamento/:id', async (req,res) => {
     const Medicamento = new MedicamentoController(req, res);
     await Medicamento.getById();
 });
-app.post('/medicamento', async (req,res) => {
+app.post('/medicamento/inserir', async (req,res) => {
     const Medicamento = new MedicamentoController(req, res);
     await Medicamento.inserir();
 });
-app.patch('/medicamento/:id', async (req,res) => {
+app.patch('/medicamento/atualizar/:id', async (req,res) => {
     const Medicamento = new MedicamentoController(req, res);
     await Medicamento.update();
 });
-app.delete('/medicamento/:id', async (req,res) => {
+app.delete('/medicamento/apagar/:id', async (req,res) => {
     const Medicamento = new MedicamentoController(req, res);
     await Medicamento.delete();
 });
@@ -91,15 +93,23 @@ app.get('/consulta/:id', async (req,res) => {
     const consulta = new ConsultasController(req, res);
     await consulta.getById();
 });
-app.post('/consulta', async (req,res) => {
+app.post('/consulta/inserir', async (req,res) => {
     const consultas = new ConsultasController(req,res);
     await consultas.inserir();
 });
-app.patch('/consulta/:id', async (req,res) => {
+app.patch('/consulta/atualizar/:id', async (req,res) => {
     const consulta = new ConsultasController(req,res);
     await consulta.update();
 });
-app.delete('/consulta/:id', async (req,res) => {
+app.delete('/consulta/apagar/:id', async (req,res) => {
     const consulta = new ConsultasController(req,res);
     await consulta.delete();
+});
+app.get('/consultas/medico/:id', async (req,res) => {
+    const consulta = new ConsultasController(req,res);
+    await consulta.consultaMedico();
+});
+app.get('/consultas/paciente/:id', async (req,res) => {
+    const consulta = new ConsultasController(req,res);
+    await consulta.consultaPaciente();
 });
