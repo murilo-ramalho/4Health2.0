@@ -1,8 +1,6 @@
 const express = require('express');
 const conn = require('./config/db');
 
-//const AccessMiddleware = require('./middlewares/AccessMiddleware');
-
 const PacienteController = require('./controller/PacienteController');
 const MedicoController = require('./controller/MedicoController');
 const MedicamentoController = require('./controller/MedicamentoController');
@@ -39,6 +37,14 @@ app.delete('/paciente/apagar/:id', async (req, res) => {
     const Paciente = new PacienteController(req, res);
     await Paciente.delete();
 });
+app.patch('/paciente/inativar/:id', async (req, res) => {
+    const Paciente = new PacienteController(req, res);
+    await Paciente.inativar();
+});
+app.patch('/paciente/reativar/:id', async (req, res) => {
+    const Paciente = new PacienteController(req, res);
+    await Paciente.reativar();
+});
 
 //médicos
 app.get('/medicos', async (req, res) => {
@@ -60,6 +66,14 @@ app.patch('/medico/atualizar/:id', async (req,res) =>{
 app.delete('/medico/apagar/:id', async (req,res) => {
     const Medico = new MedicoController(req, res);
     await Medico.delete();
+});
+app.patch('/medico/inativar/:id', async (req,res) => {
+    const Medico = new MedicoController(req, res);
+    await Medico.inativar();
+});
+app.patch('/medico/reativar/:id', async (req,res) => {
+    const Medico = new MedicoController(req, res);
+    await Medico.reativar();
 });
 
 //medicamento
@@ -112,4 +126,8 @@ app.get('/consultas/medico/:id', async (req,res) => {
 app.get('/consultas/paciente/:id', async (req,res) => {
     const consulta = new ConsultasController(req,res);
     await consulta.consultaPaciente();
+});
+app.get('/consultas/dia/:data', async (req,res) => {
+    const consulta = new ConsultasController(req,res);
+    await consulta.consultaDia();
 });

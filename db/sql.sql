@@ -75,3 +75,12 @@ CREATE TABLE IF NOT EXISTS consulta (
 );
 
 INSERT INTO consulta(tipo, finalidade, id_paciente, id_medico, data_marcada, data_registrada, detalhes, id_medicamento, situacao) VALUES("geral", "verificar saúde", 1, 1, '2023-11-22 02:00:00', '2023-11-02 02:00:00', '', 1, 'ativo');
+
+CREATE TABLE IF NOT EXISTS admin(
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    user VARCHAR(30) NOT NULL,
+    pass VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO admin(user, pass) VALUES("murilo", "admin");

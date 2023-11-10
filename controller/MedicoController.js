@@ -1,4 +1,5 @@
 const MedicoModel = require('../model/MedicoModel');
+const AccessController = require('./AccessController'); 
 
 class MedicoController {
 
@@ -6,6 +7,7 @@ class MedicoController {
         this.req = req;
         this.res = res;
         this.MedicoModel = new MedicoModel();
+        this.AccessController = new AccessController();
     }
 
     async getAll(){

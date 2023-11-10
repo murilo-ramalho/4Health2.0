@@ -29,6 +29,16 @@ class PacienteModel {
         const [paciente] = await conn.execute(`DELETE FROM paciente WHERE id = ${id}`);
         return paciente;
     }
+
+    async inativar(id){
+        const [paciente] = await conn.execute(`UPDATE paciente SET situacao = 'inativo' WHERE id = ${id}`);
+        return paciente;
+    }
+
+    async reativar(id){
+        const [paciente] = await conn.execute(`UPDATE paciente SET situacao = 'ativo' WHERE id = ${id}`);
+        return paciente;
+    }
 }
 
 module.exports = PacienteModel;
