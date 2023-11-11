@@ -42,7 +42,7 @@ class PacienteController{
             let nascimento = this.req.body.info.nascimento;
             let sexo = this.req.body.info.sexo;
             let senha = this.req.body.info.senha;
-            let situacao = this.req.body.info.situacao;
+            let situacao = "ativo";
             let problema = this.req.body.info.problema;
             let pcd = this.req.body.info.pcd;
             let alergia = this.req.body.info.alergia;

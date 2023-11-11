@@ -3,7 +3,7 @@ const conn = require('../config/db');
 class ConsultaModel {
 
     async getAll(){
-        const [call] = await conn.execute('SELECT * FROM consulta');
+        const [call] = await conn.execute('SELECT * FROM consulta WHERE situacao = "ativo"');
         return call;
     }
 

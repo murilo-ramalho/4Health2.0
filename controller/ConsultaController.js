@@ -13,7 +13,7 @@ class ConsultaController {
     async getAll(){
         if (this.access.checkMethodGet() === false) {
             return this.res.status(405).send({'status':'método nao permitido'});
-        } else if (await this.access.checkAccess() === false) {
+        } else if (await this.access.checkIsAdmin() === false) {
             return this.res.status(401).send({'status':'acesso negado'});
         } else {
             this.res.json(await this.ConsultaModel.getAll());
@@ -21,63 +21,104 @@ class ConsultaController {
     }
 
     async getById(){
-        this.res.json(await this.ConsultaModel.getById(this.req.params.id));
+        if (this.access.checkMethodGet() === false) {
+            return this.res.status(405).send({'status':'método nao permitido'});
+        } else if (await this.access.checkIsAdmin() === false) {
+            return this.res.status(401).send({'status':'acesso negado'});
+        } else {
+            this.res.json(await this.ConsultaModel.getById(this.req.params.id));
+        }
     }
 
     async inserir(){
-        let tipo = this.req.body.tipo;
-        let finalidade = this.req.body.finalidade;
-        let idPaciente = this.req.body.id_paciente;
-        let idMedico = this.req.body.id_medico;
-        let dataMarcada = this.req.body.data_marcada;
-        let dataRegistrada = this.req.body.data_registrada;
-        let detalhes = this.req.body.detalhes;
-        let idMedicamento = this.req.body.id_medicamento;
-        let situacao = this.req.body.situacao;
-        let result = await this.ConsultaModel.inserir(tipo, finalidade, idPaciente, idMedico, dataMarcada, dataRegistrada, detalhes, idMedicamento, situacao);
-        if (result.length != 0){
-            this.res.status(200).send({'status':'sucesso ao cadastrar'});
+        if (this.access.checkMethodPost() === false) {
+            return this.res.status(405).send({'status':'método nao permitido'});
+        } else if (await this.access.checkAccess() === false) {
+            return this.res.status(401).send({'status':'acesso negado'});
+        } else if (await this.access.checkIsPacienteInativo() === true) {
+            return this.res.status(400).send({'status':'paciente inativo'});
+        } else if (await this.access.checkIsMedicoInativo() === true) {
+            return this.res.status(400).send({'status':'médico inativo'});
         } else {
-            this.res.status(400).send({'status':'erro ao cadastrar'});
+            let tipo = this.req.body.info.tipo;
+            let finalidade = this.req.body.info.finalidade;
+            let idPaciente = this.req.body.info.id_paciente;
+            let idMedico = this.req.body.info.id_medico;
+            let dataMarcada = this.req.body.info.data_marcada;
+            let dataRegistrada = this.req.body.info.data_registrada;
+            let detalhes = this.req.body.info.detalhes;
+            let idMedicamento = this.req.body.info.id_medicamento;
+            let situacao = this.req.body.info.situacao;
+            let result = await this.ConsultaModel.inserir(tipo, finalidade, idPaciente, idMedico, dataMarcada, dataRegistrada, detalhes, idMedicamento, situacao);
+            if (result.length != 0){
+                this.res.status(201).send({'status':'sucesso ao cadastrar'});
+            } else {
+                this.res.status(400).send({'status':'erro ao cadastrar'});
+            }
         }
     }
 
     async update(){
-        let id = this.req.params.id;
-        let result = await this.ConsultaModel.update(id, this.req.body);
-        if (result.length != 0){
-            this.res.status(200).send({'status':'sucesso ao atualizar'});
+        if (this.access.checkMethodPatch() === false) {
+            return this.res.status(405).send({'status':'método nao permitido'});
+        } else if (await this.access.checkAccess() === false) {
+            return this.res.status(401).send({'status':'acesso negado'});
         } else {
-            this.res.status(400).send({'status':'erro ao atualizar'});
+            let id = this.req.params.id;
+            let mod = this.req.body.info;
+            let result = await this.ConsultaModel.update(id, mod);
+            if (result.length != 0){
+                this.res.status(200).send({'status':'sucesso ao atualizar'});
+            } else {
+                this.res.status(400).send({'status':'erro ao atualizar'});
+            }
         }
     }
 
     async delete(){
-        let result = await this.ConsultaModel.delete(this.req.params.id);
-        if (result.affectedRows != 0){
-            this.res.status(200).send({'status':'sucesso ao apagar'});
+        if (this.access.checkMethodDelete() === false) {
+            return this.res.status(405).send({'status':'método nao permitido'});
+        } else if (await this.access.checkAccess() === false) {
+            return this.res.status(401).send({'status':'acesso negado'});
         } else {
-            this.res.status(400).send({'status':'erro ao apagar'});
+            let result = await this.ConsultaModel.delete(this.req.params.id);
+            if (result.affectedRows != 0){
+                this.res.status(200).send({'status':'sucesso ao apagar'});
+            } else {
+                this.res.status(400).send({'status':'erro ao apagar'});
+            }
         }
     }
 
     async consultaMedico(){
-        let id = this.req.params.id;
-        let result = await this.ConsultaModel.consultaMedico(id);
-        if (result.length != 0){
-            this.res.status(200).send(result);
+        if (this.access.checkMethodGet() === false) {
+            return this.res.status(405).send({'status':'método nao permitido'});
+        } else if (await this.access.checkAccess() === false) {
+            return this.res.status(401).send({'status':'acesso negado'});
         } else {
-            this.res.status(400).send({'status':'erro ao consultar'});
+            let id = this.req.params.id;
+            let result = await this.ConsultaModel.consultaMedico(id);
+            if (result.length != 0){
+                this.res.status(200).send(result);
+            } else {
+                this.res.status(400).send({'status':'erro ao consultar'});
+            }
         }
     }
 
     async consultaPaciente(){
-        let id = this.req.params.id;
-        let result = await this.ConsultaModel.consultaPaciente(id);
-        if (result.length != 0){
-            this.res.status(200).send(result);
+        if (this.access.checkMethodGet() === false) {
+            return this.res.status(405).send({'status':'método nao permitido'});
+        } else if (await this.access.checkAccess() === false) {
+            return this.res.status(401).send({'status':'acesso negado'});
         } else {
-            this.res.status(400).send({'status':'erro ao consultar'});
+            let id = this.req.params.id;
+            let result = await this.ConsultaModel.consultaPaciente(id);
+            if (result.length != 0){
+                this.res.status(200).send(result);
+            } else {
+                this.res.status(400).send({'status':'erro ao consultar'});
+            }
         }
     }
 }

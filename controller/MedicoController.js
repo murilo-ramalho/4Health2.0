@@ -40,14 +40,15 @@ class MedicoController {
             let cpf = this.req.body.info.cpf;
             let rg = this.req.body.info.rg;
             let nome = this.req.body.info.nome;
+            let email = this.req.body.info.email;
             let nascimento = this.req.body.info.nascimento;
             let sexo = this.req.body.info.sexo;
             let senha = this.req.body.info.senha;
-            let situacao = this.req.body.info.situacao;
+            let situacao = "ativo";
             let crm = this.req.body.info.crm;
             let especialidade = this.req.body.info.especialidade;
             let horario = this.req.body.info.horario;
-            let result = await this.MedicoModel.insert(cpf,rg,nome,nascimento,sexo,senha,situacao,crm,especialidade,horario);
+            let result = await this.MedicoModel.insert(cpf,rg,nome,email,nascimento,sexo,senha,situacao,crm,especialidade,horario);
             if (result.lenght != 0) {
                 this.res.status(201).send({'status':'sucesso ao cadastrar'});
             } else {

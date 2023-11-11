@@ -43,9 +43,11 @@ class MedicamentoController {
             let dosagem = this.req.body.info.dosagem;
             let aplicacao = this.req.body.info.aplicacao;
             let quantidade = this.req.body.info.quantidade;
-            let situacao = this.req.body.info.situacao;
+            let situacao;
             if (quantidade == 0){
                 situacao = 'indisponivel';
+            } else {
+                situacao = "ativo";
             }
             let result = await this.medicamentoModel.inserir(tipo,nome,finalidade,medida,dosagem,aplicacao,quantidade,situacao);
             if (result.length != 0){

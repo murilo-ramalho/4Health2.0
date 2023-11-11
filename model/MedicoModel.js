@@ -12,8 +12,8 @@ class MedicoModel {
         return medico;
     }
 
-    async insert(cpf,rg,nome,nascimento,sexo,senha,situacao,crm,especialidade,horario){
-        const [medico] = await conn.execute('INSERT INTO medico(cpf,rg,nome,nascimento,sexo,senha,situacao,crm,especialidade,horario) VALUES (?,?,?,?,?,?,?,?,?,?)', [cpf,rg,nome,nascimento,sexo,senha,situacao,crm,especialidade,horario]);
+    async insert(cpf,rg,nome,email,nascimento,sexo,senha,situacao,crm,especialidade,horario){
+        const [medico] = await conn.execute('INSERT INTO medico(cpf,rg,nome,email,nascimento,sexo,senha,situacao,crm,especialidade,horario) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [cpf,rg,nome,email,nascimento,sexo,senha,situacao,crm,especialidade,horario]);
         return medico;
     }
 

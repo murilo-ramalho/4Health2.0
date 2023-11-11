@@ -3,7 +3,7 @@ const conn = require('../config/db');
 class MedicamentoModel {
     
     async getAll() {
-        const[medicamento] = await conn.execute('SELECT * FROM medicamento');
+        const[medicamento] = await conn.execute('SELECT * FROM medicamento WHERE situacao = ativo');
         return medicamento;
     }
     
