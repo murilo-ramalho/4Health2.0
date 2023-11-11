@@ -65,6 +65,13 @@ class AccessMiddleware {
             return true;
         }
     }
+    async checkIsMedicamentoInativo(){
+        let id = this.req.params.id;
+        const [call] = await conn.execute('SELECT situacao FROM medicamento WHERE id', [id]);
+        if (call[0].situacao === 'inativo') {
+            return true;
+        }
+    }
 
     //dados faltando
     checkPaciente(){

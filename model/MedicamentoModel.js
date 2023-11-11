@@ -18,9 +18,9 @@ class MedicamentoModel {
     }
     
     async update(id, mod){
-        const {tipo,nome,finalidade,medida,dosagem,aplicacao,quantidade,situacao} = mod;
-        const query = `UPDATE medicamento SET tipo = ?, nome = ?, finalidade = ?, medida = ?, dosagem = ?, aplicacao = ?, quantidade = ?, situacao = ? WHERE ${id}`;
-        const medicamento = await conn.execute(query, [tipo,nome,finalidade,medida,dosagem,aplicacao,quantidade,situacao]);
+        const query = `UPDATE medicamento SET ${Object.keys(mod).map(key => `${key} = ?`).join(', ')} WHERE id = ?`;
+        const values = [...Object.values(mod), id];
+        const [medicamento] = await conn.execute(query, values);
         return medicamento;
     }
 

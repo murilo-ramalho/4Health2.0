@@ -67,7 +67,8 @@ class MedicoController {
             return this.res.status(401).send({'status':'Dados Invalidos'});
         } else {
             let id = this.req.params.id;
-            let result = await this.MedicoModel.update(id,this.req.body);
+            let mod = this.req.body.info;
+            let result = await this.MedicoModel.update(id,mod);
             if (result.lenght != 0) {
                 this.res.status(200).send({'status':'sucesso ao atualizar'});
             } else {

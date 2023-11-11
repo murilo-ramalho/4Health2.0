@@ -18,8 +18,9 @@ class ConsultaModel {
     }
 
     async update(id, mod){
-        const {tipo, finalidade, id_paciente, id_medico, data_marcada, data_registrada, detalhes, id_medicamento, situacao} = mod;
-        const [call] = await conn.execute(`UPDATE consulta SET tipo = ?, finalidade = ?, id_paciente = ?, id_medico = ?, data_marcada = ?, data_registrada = ?, detalhes = ?, id_medicamento = ?, situacao = ? WHERE id = ?`, [tipo, finalidade, id_paciente, id_medico, data_marcada, data_registrada, detalhes, id_medicamento, situacao, id]);
+        const query = await conn.execute(`UPDATE consulta SET ${mod} WHERE id = ${id}`);
+        const values = [...Object.values(mod), id];
+        const [call] = await conn.execute(query, values);
         return call;
     }
     

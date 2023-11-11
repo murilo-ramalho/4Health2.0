@@ -44,7 +44,7 @@ class MedicamentoController {
             let aplicacao = this.req.body.info.aplicacao;
             let quantidade = this.req.body.info.quantidade;
             let situacao = this.req.body.info.situacao;
-            if (quantidade >= 0){
+            if (quantidade == 0){
                 situacao = 'indisponivel';
             }
             let result = await this.medicamentoModel.inserir(tipo,nome,finalidade,medida,dosagem,aplicacao,quantidade,situacao);
@@ -65,7 +65,11 @@ class MedicamentoController {
             return this.res.status(400).send({'status':'Medicamento inativo'});
         } else{
             let id = await this.req.params.id;
-            let result = await this.medicamentoModel.update(id, this.req.body.info);
+            let mod = await this.req.body.info;
+            if (mod.quantidade === 0) {
+                mod.situacao = 'inativo';
+            }
+            let result = await this.medicamentoModel.update(id, mod);
             if (result.length != 0){
                 this.res.status(200).send({'status':'successo ao atualizar'});
             } else {

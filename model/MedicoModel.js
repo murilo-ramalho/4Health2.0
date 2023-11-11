@@ -18,8 +18,9 @@ class MedicoModel {
     }
 
     async update(id, mod){
-        const {cpf,rg,nome,nascimento,sexo,senha,situacao,problema,pcd,alergia,crm,especialidade,horario} = mod;
-        const [medico] = await conn.execute('UPDATE medico SET cpf = ?, rg = ?, nome = ?, nascimento = ?, sexo = ?, senha = ?, situacao = ?, crm = ?, especialidade = ?, horario = ? WHERE id = ?', [cpf,rg,nome,nascimento,sexo,senha,situacao,crm,especialidade,horario,id]);
+        const query = `UPDATE medico SET ${Object.keys(mod).map(key => `${key} = ?`).join(', ')} WHERE id = ?`;
+        const values = [...Object.values(mod), id];
+        const [medico] = await conn.execute(query, values);
         return medico;
     }
 

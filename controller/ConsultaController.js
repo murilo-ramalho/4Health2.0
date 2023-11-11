@@ -1,4 +1,5 @@
 const ConsultaModel = require('../model/ConsultaModel');
+const AccessController = require('./AccessController');
 
 class ConsultaController {
 
@@ -6,10 +7,17 @@ class ConsultaController {
         this.req = req;
         this.res = res;
         this.ConsultaModel = new ConsultaModel();
+        this.access = new AccessController(req, res);
     }
 
     async getAll(){
-        this.res.json(await this.ConsultaModel.getAll());
+        if (this.access.checkMethodGet() === false) {
+            return this.res.status(405).send({'status':'método nao permitido'});
+        } else if (await this.access.checkAccess() === false) {
+            return this.res.status(401).send({'status':'acesso negado'});
+        } else {
+            this.res.json(await this.ConsultaModel.getAll());
+        }
     }
 
     async getById(){
