@@ -7,14 +7,14 @@ class PacienteController{
         this.req = req;
         this.res = res;
         this.PacienteModel = new PacienteModel();
-        this.access = new access(res,req);
+        this.access = new access(req,res);
     }
 
     async getAll(){
         if (this.access.checkMethodGet() === false) {
-            return this.res.status(405).send('Método não permitido');
+            return this.res.status(405).send({'status':'Método não permitido'});
         } else if(await this.access.checkAccess() === false){
-            return this.res.status(401).send('Acesso negado');
+            return this.res.status(401).send({'status':'Acesso negado'});
         } else {
             this.res.json(await this.PacienteModel.getAll());
         }
@@ -22,9 +22,9 @@ class PacienteController{
 
     async getById(){
         if (this.access.checkMethodGet() === false) {
-            return this.res.status(405).send('Método não permitido');
+            return this.res.status(405).send({'status':'Método não permitido'});
         } else if(await this.access.checkAccess() === false){
-            return this.res.status(401).send('Acesso negado');
+            return this.res.status(401).send({'status':'Acesso negado'});
         } else {
             this.res.json(await this.PacienteModel.getById(this.req.params.id));
         }
@@ -32,9 +32,9 @@ class PacienteController{
 
     async post(){
         if (this.access.checkMethodPost() === false) {
-            return this.res.status(405).send('Método não permitido');
+            return this.res.status(405).send({'status':'Método não permitido'});
         } else if (await this.access.checkPaciente() === false) {
-            return this.res.status(400).send('Dados inválidos');
+            return this.res.status(400).send({'status':'Dados inválidos'});
         } else{
             let cpf = this.req.body.info.cpf;
             let rg = this.req.body.info.rg;
@@ -57,14 +57,17 @@ class PacienteController{
 
     async update(){
         if (this.access.checkMethodPatch() === false) {
-            return this.res.status(405).send('Método não permitido');
+            return this.res.status(405).send({'status':'Método não permitido'});
+        } else if (await this.access.checkAccess() === false) {
+            return this.res.status(401).send({'status':'Acesso negado'});
         } else if (await this.access.checkPaciente() === false) {
-            return this.res.status(400).send('Dados inválidos ou faltantes');
+            return this.res.status(400).send({'status':'Dados inválidos ou faltantes'});
         } else if (await this.access.checkIsPacienteInativo() === true) {
-            return this.res.status(400).send('Paciente inativo, não é possível atualizar');
+            return this.res.status(400).send({'status':'Paciente inativo, não é possível atualizar'});
         } else {
             let id = this.req.params.id;
-            let result = await this.PacienteModel.patch(id, this.req.body);
+            let mod = this.req.body.info;
+            let result = await this.PacienteModel.patch(id, mod);
             if( result.length != 0){
                 this.res.status(200).send({'status':'atualizado com sucesso'});
             } else {
@@ -75,9 +78,9 @@ class PacienteController{
     
     async delete(){
         if (this.access.checkMethodDelete() === false) {
-            return this.res.status(405).send('Método não permitido');
+            return this.res.status(405).send({'status':'Método não permitido'});
         } else if (await this.access.checkIsAdmin() === false) {
-            return this.res.status(401).send('Acesso negado');
+            return this.res.status(401).send({'status':'Acesso negado'});
         } else {
             let result = await this.PacienteModel.delete(this.req.params.id);
             if (result.affectedRows != 0){
@@ -90,11 +93,11 @@ class PacienteController{
 
     async inativar(){
         if (this.access.checkMethodPatch() === false) {
-            return this.res.status(405).send('Método não permitido');
+            return this.res.status(405).send({'status':'Método não permitido'});
         } else if (await this.access.checkAccess() === false) {
-            return this.res.status(401).send('Acesso negado');
+            return this.res.status(401).send({'status':'Acesso negado'});
         } else if (await this.access.checkIsPacienteInativo() === true) {
-            return this.res.status(400).send('Paciente inativo, não é possível inativar');
+            return this.res.status(400).send({'status':'Paciente inativo, não é possível inativar'});
         } else {
             let result = await this.PacienteModel.inativar(this.req.params.id);
             if (result.affectedRows != 0){
@@ -107,11 +110,11 @@ class PacienteController{
 
     async reativar(){
         if (this.access.checkMethodPatch() === false) {
-            return this.res.status(405).send('Método não permitido');
+            return this.res.status(405).send({'status':'Método não permitido'});
         } else if (await this.access.checkAccess() === false) {
-            return this.res.status(401).send('Acesso negado');
+            return this.res.status(401).send({'status':'Acesso negado'});
         } else if (await this.access.checkIsPacienteInativo() === false) {
-            return this.res.status(400).send('Paciente ativo, não é possível reativar');
+            return this.res.status(400).send({'status':'Paciente ativo, não é possível reativar'});
         } else {
             let result = await this.PacienteModel.reativar(this.req.params.id);
             if (result.affectedRows != 0){

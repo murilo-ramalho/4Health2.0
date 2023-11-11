@@ -3,7 +3,7 @@ const conn = require('../config/db');
 class PacienteModel {
 
     async getAll(){
-        const [pacientes] = await conn.execute('SELECT * FROM paciente');
+        const [pacientes] = await conn.execute('SELECT * FROM paciente WHERE situacao = "ativo"');
         return pacientes;
     }
 
@@ -18,10 +18,10 @@ class PacienteModel {
     }
 
     async patch(id, mod){
-        const query = "UPDATE paciente SET cpf = ?, rg = ?, nome = ?, nascimento = ?, sexo = ?, senha = ?, situacao = ?, problema = ?, pcd = ?, alergia = ? WHERE id = ?";
-        const {cpf,rg,nome,nascimento,sexo,senha,situacao,problema,pcd,alergia} = mod;
+        const query = `UPDATE paciente SET ${Object.keys(mod).map(key => `${key} = ?`).join(', ')} WHERE id = ?`;
+        const values = [...Object.values(mod), id];
 
-        const [paciente] = await conn.execute(query, [cpf,rg,nome,nascimento,sexo,senha,situacao,problema,pcd,alergia, id]);
+        const [paciente] = await conn.execute(query, values);
         return paciente;
     }
 

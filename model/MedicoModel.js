@@ -3,7 +3,7 @@ const conn = require('../config/db');
 class MedicoModel {
 
     async getAll(){
-        const [medico] = await conn.execute('SELECT * FROM medico');
+        const [medico] = await conn.execute('SELECT * FROM medico WHERE situacao = "ativo"');
         return medico;
     }
 
@@ -25,6 +25,16 @@ class MedicoModel {
 
     async delete(id){
         const [paciente] = await conn.execute(`DELETE FROM medico WHERE id = ${id}`);
+        return paciente;
+    }
+
+    async inativar(id){
+        const [paciente] = await conn.execute(`UPDATE medico SET situacao = "inativo" WHERE id = ${id}`);
+        return paciente;
+    }
+
+    async reativar(id){
+        const [paciente] = await conn.execute(`UPDATE medico SET situacao = "ativo" WHERE id = ${id}`);
         return paciente;
     }
 }

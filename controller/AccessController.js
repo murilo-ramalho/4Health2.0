@@ -1,7 +1,8 @@
+const e = require('express');
 const conn = require('../config/db');
 
 class AccessMiddleware {
-    constructor(res, req) {
+    constructor(req, res) {
         this.res = res;
         this.req = req;
     }
@@ -32,31 +33,34 @@ class AccessMiddleware {
     async checkAccess() {
         let user = this.req.body.access.user;
         let pass = this.req.body.access.pass;
-        if (user === undefined || pass === undefined) {
-            return false;
-        } else if (user == "" || pass == "") {
-            return false;
-        } else {
-            const [call] = await conn.execute('SELECT * FROM paciente WHERE cpf = ? AND senha = ?', [user, pass]);
-            if (call.length === 0 && await this.checkIsAdmin() === false || call.length === 0 && await this.checkIsAdmin() === true) {
-                return true;
-            }
+        const isAdmin = await this.checkIsAdmin();
+
+        const [callPaciente] = await conn.execute('SELECT * FROM paciente WHERE cpf = ? AND senha = ?', [user, pass]);
+
+        if (callPaciente.length > 0 && callPaciente[0].situacao !== 'inativo') {
+            return true;
         }
+        if (user === undefined || pass === undefined || user === "" || pass === "") {
+            return false;
+        }
+        if (isAdmin) {
+            return true;
+        }
+
+        return false;
     }
     
     //se tiver inativo
     async checkIsPacienteInativo(){
-        let user = this.req.body.access.user;
-        let pass = this.req.body.access.pass;
-        const [call] = await conn.execute('SELECT * FROM paciente WHERE cpf = ? AND senha = ?', [user, pass]);
+        let id = this.req.params.id;
+        const [call] = await conn.execute('SELECT situacao FROM paciente WHERE id = ?', [id]);
         if (call[0].situacao === 'inativo') {
             return true;
         }
     }
     async checkIsMedicoInativo(){
-        let user = this.req.body.access.user;
-        let pass = this.req.body.access.pass;
-        const [call] = await conn.execute('SELECT * FROM medico WHERE cpf = ? AND senha = ?', [user, pass]);
+        let id = this.req.params.id;
+        const [call] = await conn.execute('SELECT situacao FROM medico WHERE id', [id]);
         if (call[0].situacao === 'inativo') {
             return true;
         }
@@ -92,10 +96,10 @@ class AccessMiddleware {
     async checkIsAdmin(){
         let user = this.req.body.access.user;
         let pass = this.req.body.access.pass;
-        const [call] = await conn.execute('SELECT * FROM admin WHERE user = ? AND pass = ?', [user, pass]);
-        if (call.length === 0) {
-            return false;
-        }
+    
+        const [callAdmin] = await conn.execute('SELECT * FROM admin WHERE user = ? AND pass = ?', [user, pass]);
+    
+        return callAdmin.length > 0;
     }
 }
 
