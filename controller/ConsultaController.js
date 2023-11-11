@@ -48,7 +48,7 @@ class ConsultaController {
             let dataRegistrada = this.req.body.info.data_registrada;
             let detalhes = this.req.body.info.detalhes;
             let idMedicamento = this.req.body.info.id_medicamento;
-            let situacao = this.req.body.info.situacao;
+            let situacao = "ativa";
             let result = await this.ConsultaModel.inserir(tipo, finalidade, idPaciente, idMedico, dataMarcada, dataRegistrada, detalhes, idMedicamento, situacao);
             if (result.length != 0){
                 this.res.status(201).send({'status':'sucesso ao cadastrar'});
@@ -114,6 +114,22 @@ class ConsultaController {
         } else {
             let id = this.req.params.id;
             let result = await this.ConsultaModel.consultaPaciente(id);
+            if (result.length != 0){
+                this.res.status(200).send(result);
+            } else {
+                this.res.status(400).send({'status':'erro ao consultar'});
+            }
+        }
+    }
+
+    async consultaDia(){
+        if (this.access.checkMethodGet() === false) {
+            return this.res.status(405).send({'status':'método nao permitido'});
+        } else if (await this.access.checkAccess() === false) {
+            return this.res.status(401).send({'status':'acesso negado'});
+        } else {
+            let data = this.req.params.data;
+            let result = await this.ConsultaModel.consultaDia(data);
             if (result.length != 0){
                 this.res.status(200).send(result);
             } else {

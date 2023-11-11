@@ -38,6 +38,11 @@ class ConsultaModel {
         const [call] = await conn.execute(`SELECT * FROM consulta WHERE id_paciente = ${id}`);
         return call;
     }
+    
+    async consultaDia(data){
+        const [call] = await conn.execute(`SELECT * FROM consulta WHERE data_marcada = "${data}"`);
+        return call;
+    }
 }
 
 module.exports = ConsultaModel;
