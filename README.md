@@ -176,7 +176,7 @@ Exemplos de respostas em JSON.
 
 MIT
 
-## Referências e Recursos Adicionais
+## Mais informações
 
 - [Documentação da API](./documents/documentação.docx)
 - [Requisitos](./documents/Requisitos.docx)
