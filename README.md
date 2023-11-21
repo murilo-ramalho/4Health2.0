@@ -10,55 +10,55 @@ Autenticação, exemplos de solicitações, parâmetros e respostas.
 ## Endpoint e Rotas
 
 Puxa todos que estão ativos:
-GET	   {local}/pacientes/
-GET    {local}/médicos/
-GET	   {local}/medicamentos/
-GET	   {local}/consultas/
+- GET	   {local}/pacientes/
+- GET    {local}/médicos/
+- GET	   {local}/medicamentos/
+- GET	   {local}/consultas/
 
 Puxa um elemento específico:
-GET    {local}/paciente/:id
-GET	   {local}/medico/:id
-GET	   {local}/medicamento/:id
-GET    {local}/consulta/:id
+- GET    {local}/paciente/:id
+- GET	   {local}/medico/:id
+- GET	   {local}/medicamento/:id
+- GET    {local}/consulta/:id
 
 Inserir:
-POST    {local}/paciente/cadastrar/
-POST	{local}/medico/cadastrar/
-POST	{local}/medicamento /inserir/
-POST	{local}/consulta/inserir/
+- POST    {local}/paciente/cadastrar/
+- POST	{local}/medico/cadastrar/
+- POST	{local}/medicamento /inserir/
+- POST	{local}/consulta/inserir/
 
 Atualizar:
-PATCH	{local}/paciente/atualizar/:id
-PATCH	{local}/medico/atualizar/:id
-PATCH	{local}/medicamento/atualizar/:id
-PATCH	{local}/consulta/atualizar/:id
+- PATCH	{local}/paciente/atualizar/:id
+- PATCH	{local}/medico/atualizar/:id
+- PATCH	{local}/medicamento/atualizar/:id
+- PATCH	{local}/consulta/atualizar/:id
 
 Apagar:
-DELETE    {local}/paciente/apagar/:id
-DELETE	  {local}/medico/apagar/:id
-DELETE	  {local}/medicamento/apagar/:id
-DELETE	  {local}/consulta/apagar/:id
+- DELETE    {local}/paciente/apagar/:id
+- DELETE	  {local}/medico/apagar/:id
+- DELETE	  {local}/medicamento/apagar/:id
+- DELETE	  {local}/consulta/apagar/:id
 
 Funções específicas:
-GET    {local}/consultas/data/:data
+- GET    {local}/consultas/data/:data
 essa requisição puxa todas as consultas de um dia específico
 
-GET	   {local}/consultas/paciente/:id
+- GET	   {local}/consultas/paciente/:id
 essa requisição puxa todas as consultas de um paciente específico
 
-GET	   {local}/consultas/medico/:id
+- GET	   {local}/consultas/medico/:id
 essa requisição puxa todas as consultas de um médico específico
 
-PATCH    {local}/paciente/inativar/:id
+- PATCH    {local}/paciente/inativar/:id
 essa requisição inativa um paciente específico
 
-PATCH	 {local}/medico/inativar/:id
+- PATCH	 {local}/medico/inativar/:id
 essa requisição inativa um médico específico
 
-PATCH	 {local}/paciente/reativar/:id
+- PATCH	 {local}/paciente/reativar/:id
 essa requisição reativa um paciente específico
 
-PATCH	 {local}/medico/reativar/:id
+- PATCH	 {local}/medico/reativar/:id
 essa requisição reativa um médico específico
 
 
