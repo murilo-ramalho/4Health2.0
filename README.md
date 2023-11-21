@@ -8,27 +8,31 @@ refazendo com uma nova arquitetura e regras de negócios
 Autenticação deve ser feita com um aquivo json contendo o acesso com o usuario e a senha **tambem pode ser o administrador**.
 O contéudo caso seja cadastro ou atualizar, deve conter todos os dados abaixo:
 
-- paciente => cpf, rg, nome, nascimento, sexo, senha, situacao, problema, pcd e alergia
-- médico => cpf, rg, nome, nascimento, email, sexo, senha, situacao, crm, especialidade e horario
-- medicamento => tipo, nome, finalidade, medida, dosagem, aplicacao, quantidade e situacao
-- consulta => tipo, finalidade, id_paciente, id_medico, data_marcada, data_registrada, detalhes, id_medicamento, situacao
+- Paciente
+> cpf, rg, nome, nascimento, sexo, senha, situacao, problema, pcd e alergia
+- Médico
+> cpf, rg, nome, nascimento, email, sexo, senha, situacao, crm, especialidade e horario
+- Medicamento
+> tipo, nome, finalidade, medida, dosagem, aplicacao, quantidade e situacao
+- Consulta
+> tipo, finalidade, id_paciente, id_medico, data_marcada, data_registrada, detalhes, id_medicamento, situacao
 
 ## Endpoint e Rotas
 
 Puxa todos que estão ativos:
-- GET	   {local}/pacientes/
-- GET    {local}/médicos/
-- GET	   {local}/medicamentos/
-- GET	   {local}/consultas/
+- GET	{local}/pacientes/
+- GET	{local}/médicos/
+- GET	{local}/medicamentos/
+- GET	{local}/consultas/
 
 Puxa um elemento específico:
-- GET    {local}/paciente/:id
-- GET	   {local}/medico/:id
-- GET	   {local}/medicamento/:id
-- GET    {local}/consulta/:id
+- GET	{local}/paciente/:id
+- GET	{local}/medico/:id
+- GET	{local}/medicamento/:id
+- GET	{local}/consulta/:id
 
 Inserir:
-- POST    {local}/paciente/cadastrar/
+- POST	{local}/paciente/cadastrar/
 - POST	{local}/medico/cadastrar/
 - POST	{local}/medicamento /inserir/
 - POST	{local}/consulta/inserir/
@@ -40,31 +44,31 @@ Atualizar:
 - PATCH	{local}/consulta/atualizar/:id
 
 Apagar:
-- DELETE    {local}/paciente/apagar/:id
-- DELETE	  {local}/medico/apagar/:id
-- DELETE	  {local}/medicamento/apagar/:id
-- DELETE	  {local}/consulta/apagar/:id
+- DELETE	{local}/paciente/apagar/:id
+- DELETE	{local}/medico/apagar/:id
+- DELETE	{local}/medicamento/apagar/:id
+- DELETE	{local}/consulta/apagar/:id
 
 Funções específicas:
-- GET    {local}/consultas/data/:data =>
+- GET	{local}/consultas/data/:data =>
 essa requisição puxa todas as consultas de um dia específico.
 
-- GET	   {local}/consultas/paciente/:id =>
+- GET	{local}/consultas/paciente/:id =>
 essa requisição puxa todas as consultas de um paciente específico.
 
-- GET	   {local}/consultas/medico/:id =>
+- GET	{local}/consultas/medico/:id =>
 essa requisição puxa todas as consultas de um médico específico.
 
-- PATCH    {local}/paciente/inativar/:id =>
+- PATCH	{local}/paciente/inativar/:id =>
 essa requisição inativa um paciente específico.
 
-- PATCH	 {local}/medico/inativar/:id =>
+- PATCH	{local}/medico/inativar/:id =>
 essa requisição inativa um médico específico.
 
-- PATCH	 {local}/paciente/reativar/:id =>
+- PATCH	{local}/paciente/reativar/:id =>
 essa requisição reativa um paciente específico.
 
-- PATCH	 {local}/medico/reativar/:id =>
+- PATCH	{local}/medico/reativar/:id =>
 essa requisição reativa um médico específico
 
 
