@@ -34,7 +34,7 @@ class MedicoController {
     async insert(){
         if (this.access.checkMethodPost() === false){
             return this.res.status(405).send({'status':'Método não permitido'});
-        } else if (this.access.checkPaciente() === false){
+        } else if (this.access.checkMedico() === false){
             return this.res.status(401).send({'status':'Dados Invalidos'});
         } else {
             let cpf = this.req.body.info.cpf;
@@ -64,8 +64,6 @@ class MedicoController {
             return this.res.status(401).send({'status':'Acesso negado'});
         } else if (this.access.checkIsMedicoInativo() === true){
             return this.res.status(401).send({'status':'Médico inativo, não pode ser atualizado'});
-        } else if (this.access.checkMedico() === false){
-            return this.res.status(401).send({'status':'Dados Invalidos'});
         } else {
             let id = this.req.params.id;
             let mod = this.req.body.info;
@@ -81,7 +79,7 @@ class MedicoController {
     async delete(){
         if (this.access.checkMethodDelete() === false){
             return this.res.status(405).send({'status':'Método não permitido'});
-        } else if (this.access.checkAccess() === false){
+        } else if (this.access.checkIsAdmin() === false){
             return this.res.status(401).send({'status':'Acesso negado'});
         } else {
             let result = await this.MedicoModel.delete(this.req.params.id);

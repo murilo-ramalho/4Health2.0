@@ -37,9 +37,6 @@ class AccessMiddleware {
 
         const [callPaciente] = await conn.execute('SELECT * FROM paciente WHERE cpf = ? AND senha = ?', [user, pass]);
 
-        if (callPaciente.length > 0 && callPaciente[0].situacao !== 'inativo') {
-            return true;
-        }
         if (user === undefined || pass === undefined || user === "" || pass === "") {
             return false;
         }
@@ -51,22 +48,19 @@ class AccessMiddleware {
     }
     
     //se tiver inativo
-    async checkIsPacienteInativo(){
-        let id = this.req.params.id;
+    async checkIsPacienteInativo(id){
         const [call] = await conn.execute('SELECT situacao FROM paciente WHERE id = ?', [id]);
-        if (call[0].situacao === 'inativo') {
+        if (call.situacao == 'inativo') {
             return true;
         }
     }
-    async checkIsMedicoInativo(){
-        let id = this.req.params.id;
+    async checkIsMedicoInativo(id){
         const [call] = await conn.execute('SELECT situacao FROM medico WHERE id', [id]);
         if (call[0].situacao === 'inativo') {
             return true;
         }
     }
-    async checkIsMedicamentoInativo(){
-        let id = this.req.params.id;
+    async checkIsMedicamentoInativo(id){
         const [call] = await conn.execute('SELECT situacao FROM medicamento WHERE id', [id]);
         if (call[0].situacao === 'inativo') {
             return true;

@@ -35,9 +35,9 @@ class ConsultaController {
             return this.res.status(405).send({'status':'método nao permitido'});
         } else if (await this.access.checkAccess() === false) {
             return this.res.status(401).send({'status':'acesso negado'});
-        } else if (await this.access.checkIsPacienteInativo() === true) {
+        } else if (await this.access.checkIsPacienteInativo(this.req.body.access.user) === true) {
             return this.res.status(400).send({'status':'paciente inativo'});
-        } else if (await this.access.checkIsMedicoInativo() === true) {
+        } else if (await this.access.checkIsMedicoInativo(this.req.body.info.id_medico) === true) {
             return this.res.status(400).send({'status':'médico inativo'});
         } else {
             let tipo = this.req.body.info.tipo;
@@ -48,7 +48,7 @@ class ConsultaController {
             let dataRegistrada = this.req.body.info.data_registrada;
             let detalhes = this.req.body.info.detalhes;
             let idMedicamento = this.req.body.info.id_medicamento;
-            let situacao = "ativa";
+            let situacao = "ativo";
             let result = await this.ConsultaModel.inserir(tipo, finalidade, idPaciente, idMedico, dataMarcada, dataRegistrada, detalhes, idMedicamento, situacao);
             if (result.length != 0){
                 this.res.status(201).send({'status':'sucesso ao cadastrar'});

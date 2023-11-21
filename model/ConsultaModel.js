@@ -17,12 +17,18 @@ class ConsultaModel {
         return call;
     }
 
-    async update(id, mod){
-        const query = await conn.execute(`UPDATE consulta SET ${mod} WHERE id = ${id}`);
-        const values = [...Object.values(mod), id];
+    async update(id, mod) {
+        const columnsToUpdate = Object.keys(mod);
+        const updateValues = Object.values(mod);
+        const setClause = columnsToUpdate.map(column => `${column} = ?`).join(', ');
+    
+        const query = `UPDATE consulta SET ${setClause} WHERE id = ?`;
+        const values = [...updateValues, id];
+    
         const [call] = await conn.execute(query, values);
         return call;
     }
+    
     
     async delete(id){
         const [call] = await conn.execute(`DELETE FROM consulta WHERE id = ${id}`);
