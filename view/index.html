@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4Health</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
+</head>
+
+<body>
+    <header id="home">
+        <h1>4health 2.0</h1>
+        <nav>
+            <a href="#services">Serviços</a>
+            <a href="#about">Agendamentos</a>
+        </nav>
+    </header>
+
+    <section>
+        <div>
+            <h3 id="mensagemLogado"></h3>
+            <p>Bem-vindo ao 4Health!
+
+                Nossa plataforma revolucionária foi desenvolvida para tornar sua jornada de cuidados de saúde mais conveniente, eficiente e acessível. Você não precisa mais se preocupar em enfrentar filas e deslocamentos para agendar consultas ou vacinas. Nosso sistema inteligente e amigável permite que você faça tudo isso com apenas alguns cliques, a partir do conforto da sua casa ou onde quer que você esteja. Agora, é possível agendar sua consulta com seu médico de confiança ou verificar as datas disponíveis para vacinação de forma rápida e descomplicada.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2> <span>Agendar Consulta</span> </h2>
+        <form id="formConsulta">
+            <label for="selectedDate">Selecione a data:</label>
+            <input type="date" id="selectedDate" required>
+
+            <label for="selectedMedico">Selecione o médico:</label>
+            <select id="selectedMedico" required>
+            </select>
+
+            <label for="cpfDigitado">digite seu cpf:</label>
+            <input type="text" id="cpfDigitado" placeholder="Digite seu CPF" required>
+
+            <label for="detalhes">Detalhes:</label>
+            <textarea id="detalhes" rows="4" cols="50" placeholder="Informe detalhes adicionais"></textarea>
+
+            <button type="submit">Agendar Consulta</button>
+        </form>
+        <div id="respostaConsulta"></div>
+
+    </section>
+
+    <section>
+        <div>
+            <div>
+                <h3>Contate-nos</h3>
+                <a href="#review"> +19 98113-1751 </a>
+                <a href="#review"> +19 98608-5124 </a>
+                <a href="#review"> 4Hcontato@gmail.com </a>
+                <a href="#review"> Estiva Gerbi - 13857-000 </a>
+            </div>
+        </div>
+        <div> Criado por <span>4Health</span> | Fatec Athur de azevedo | 2023</div>
+    </section>
+</body>
+
+</html>

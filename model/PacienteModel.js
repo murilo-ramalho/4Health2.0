@@ -39,6 +39,11 @@ class PacienteModel {
         const [paciente] = await conn.execute(`UPDATE paciente SET situacao = 'ativo' WHERE id = ${id}`);
         return paciente;
     }
+
+    async buscaId(cpf){
+        const [paciente] = await conn.execute(`SELECT id FROM paciente WHERE cpf = ${cpf} LIMIT 1`);
+        return paciente;
+    }
 }
 
 module.exports = PacienteModel;

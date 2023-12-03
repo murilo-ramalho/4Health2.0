@@ -1,5 +1,6 @@
 const express = require('express');
 const conn = require('./config/db');
+const cors = require('cors');
 
 const PacienteController = require('./controller/PacienteController');
 const MedicoController = require('./controller/MedicoController');
@@ -8,6 +9,7 @@ const ConsultasController = require('./controller/ConsultaController');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
@@ -44,6 +46,10 @@ app.patch('/paciente/inativar/:id', async (req, res) => {
 app.patch('/paciente/reativar/:id', async (req, res) => {
     const Paciente = new PacienteController(req, res);
     await Paciente.reativar();
+});
+app.get('/pacientes/buscaid/', async (req, res) => {
+    const Paciente = new PacienteController(req, res);
+    await Paciente.buscaId();
 });
 
 //médicos

@@ -33,8 +33,6 @@ class ConsultaController {
     async inserir(){
         if (this.access.checkMethodPost() === false) {
             return this.res.status(405).send({'status':'método nao permitido'});
-        } else if (await this.access.checkAccess() === false) {
-            return this.res.status(401).send({'status':'acesso negado'});
         } else if (await this.access.checkIsPacienteInativo(this.req.body.access.user) === true) {
             return this.res.status(400).send({'status':'paciente inativo'});
         } else if (await this.access.checkIsMedicoInativo(this.req.body.info.id_medico) === true) {

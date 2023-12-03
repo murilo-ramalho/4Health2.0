@@ -14,8 +14,6 @@ class MedicoController {
     async getAll(){
         if (this.access.checkMethodGet() == false){
             return this.res.status(405).send({'status':'Método não permitido'});
-        } else if (await this.access.checkAccess() === false){
-            return this.res.status(401).send({'status':'Acesso negado'});
         } else {
             this.res.json(await this.MedicoModel.getAll());
         }

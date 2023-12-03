@@ -122,6 +122,14 @@ class PacienteController{
             }
         }
     }
+
+    async buscaId(){
+        if (this.access.checkMethodGet() === false) {
+            return this.res.status(405).send({'status':'Método não permitido'});
+        } else {
+            this.res.json(await this.PacienteModel.buscaId(this.req.body.cpf));
+        }
+    }
 }
 
 module.exports = PacienteController;

@@ -1,0 +1,147 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #16a085;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+nav a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+}
+
+section {
+    text-align: center;
+    padding: 20px;
+}
+
+section div {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+section h2 {
+    color: #16a085;
+}
+
+section p {
+    margin: 20px 0;
+}
+
+section a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #16a085;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+section a:hover {
+    background-color: #138971;
+}
+
+.footer {
+    background-color: #f0f0f0;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.box-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.box {
+    flex: 1;
+}
+
+.box h3 {
+    color: #16a085;
+}
+
+.credit {
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    header {
+        font-size: 18px;
+    }
+
+    nav {
+        flex-direction: column;
+    }
+}
+
+/* Adicione estas regras ao seu arquivo CSS */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+#formConsulta {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#formConsulta label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#formConsulta input,
+#formConsulta select,
+#formConsulta textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+#formConsulta button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#formConsulta button:hover {
+    background-color: #45a049;
+}
+
+#formConsulta textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+#mensagemResposta {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+}
